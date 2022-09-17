@@ -1,45 +1,18 @@
-import { useEffect } from "react";
-import { useState } from "react";
-import axios from "axios";
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { lazy } from 'react';
+import { MainLayout } from 'layout';
 
-import { PokemonGallery } from "components/PokemonGallery";
-
-
+const HomePage = lazy(() => import('pages'));
+const PokemonStatsPage = lazy(() => import('pages/PokemonStatsPage'))
 
 export const App = () => {
-  const init = 'https://pokeapi.co/api/v2/pokemon?limit=10'
-const [allPokemons, setAllPokemons] = useState([]);
-const [loadMore, setLoadMore] = useState('https://pokeapi.co/api/v2/pokemon?limit=10');
-
-useEffect(() => {
-  
-  getAllPokemons()
- },[])
-
-function createPokemonObject (results) {
-  results.forEach(async (pokemon) => {
-    const {data} = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`)
-  setAllPokemons(prev => [...prev, data]);
-  allPokemons.sort((a, b) => a.id - b.id)
-  })
- }
- async function getAllPokemons () {
-  const {data} = await axios.get(loadMore);
-console.log(data);
-   setLoadMore(data.next);
-createPokemonObject(data.results);
-}
-
   return (
-<div>
-  <h1>Pokemon Evolution</h1>
-  <div>
-    <div>
-      {<PokemonGallery pokemons={allPokemons}/>}
-     
-    </div>
-    <button type="button"onClick={()=>getAllPokemons()}>Load more</button>
-  </div>
-</div>
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
+        <Route path="/" element={<HomePage />}/>
+        <Route path='pokemons/:pokemonId/*' element={<PokemonStatsPage/>}/>
+        <Route path="*" element={<Navigate to="/" />} />
+      </Route>
+    </Routes>
   );
 };

@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { PokemonCard } from './PokemonCard';
 
 const PokemonList = styled.ul`
@@ -38,13 +38,13 @@ export const PokemonGallery = ({ pokemons }) => {
   );
 };
 
-PokemonGallery.propTypes = {
-  pokemons: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      image: PropTypes.string,
-      type: PropTypes.string,
-    })
-  ),
-};
+// PokemonGallery.propTypes = {
+//   pokemons: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       id: PropTypes.number.isRequired,
+//       name: PropTypes.string.isRequired,
+//       image: PropTypes.string,
+//       type: PropTypes.string,
+//     })
+//   ),
+// };

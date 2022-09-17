@@ -1,11 +1,11 @@
 import { customAxios } from "./api";
-import axios from "axios";
 import { toast } from "react-toastify";
 
  
 export const getPokemonData = async (url) => {
   try {
-    const  data  = await customAxios.get(url);
+    const {data} = await customAxios.get(url);
+    console.log(data);
     return data;
   } catch (error) {
     toast.error(`Oops, an error occurred! ${error}`);

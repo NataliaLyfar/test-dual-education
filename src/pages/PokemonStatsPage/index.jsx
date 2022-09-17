@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { ThreeDots } from  'react-loader-spinner';
+// import { toast } from 'react-toastify';
+// import { ThreeDots } from  'react-loader-spinner';
 import { Container } from "components/ui/Container";
 import { BackButton } from 'components/ui/buttons';
 import { Section } from 'components/ui/Section';
@@ -9,8 +9,8 @@ import { Section } from 'components/ui/Section';
 
 const PokemonStatsPage = () => {
 const { pokemonId } = useParams();
-const [movie, setMovie] =useState({});
-const [isLoading, setIsLoading] = useState(false);
+// const [movie, setMovie] =useState({});
+// const [isLoading, setIsLoading] = useState(false);
 const [backLocation, setBackLocation] = useState(null);
 const location = useLocation();
 const navigate = useNavigate();

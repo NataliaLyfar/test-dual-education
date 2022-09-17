@@ -134,21 +134,16 @@ const [allPokemons, setAllPokemons] = useState([]);
 
 
 useEffect(() => {
-  (async function getAllPokemons (limit, offset) {
-    const data = await getPokemons();
-
+  (async () => {
+    const {data} = await getPokemons(10,0);
     //  setLoadMore(data.next);
-    
-      const results = data.results.map(async (pokemon) => {
-        // const {data} = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`)
-        await getPokemonData(pokemon.name)
-      
+      const promises = data.results.map(async (pokemon) => {
+        return await getPokemonData(pokemon.name)
       })
-     
-    //  setAllPokemons(prev => [...prev, ...data]);
- setAllPokemons(results)
+      const results = await Promise.all(promises);
+     setAllPokemons(prev => [...prev, ...results]);
   })()
- },[allPokemons])
+ },[])
 
  return (
   

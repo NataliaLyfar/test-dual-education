@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { Container } from "components/ui/Container";
-import { SearchBar } from "components/Searchbar";
+import { SearchBar } from "components/SearchBar";
 
 const HeaderWrapper = styled.header`
 position: fixed;
