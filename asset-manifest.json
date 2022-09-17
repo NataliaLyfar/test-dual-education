@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/test-dual-education/static/css/main.3d10672c.css",
+    "main.js": "/test-dual-education/static/js/main.95bc284e.js",
+    "static/js/997.4c328a03.chunk.js": "/test-dual-education/static/js/997.4c328a03.chunk.js",
+    "static/js/826.79720adc.chunk.js": "/test-dual-education/static/js/826.79720adc.chunk.js",
+    "static/js/569.c00c9fd5.chunk.js": "/test-dual-education/static/js/569.c00c9fd5.chunk.js",
+    "static/js/36.3cce3796.chunk.js": "/test-dual-education/static/js/36.3cce3796.chunk.js",
+    "index.html": "/test-dual-education/index.html",
+    "main.3d10672c.css.map": "/test-dual-education/static/css/main.3d10672c.css.map",
+    "main.95bc284e.js.map": "/test-dual-education/static/js/main.95bc284e.js.map",
+    "997.4c328a03.chunk.js.map": "/test-dual-education/static/js/997.4c328a03.chunk.js.map",
+    "826.79720adc.chunk.js.map": "/test-dual-education/static/js/826.79720adc.chunk.js.map",
+    "569.c00c9fd5.chunk.js.map": "/test-dual-education/static/js/569.c00c9fd5.chunk.js.map",
+    "36.3cce3796.chunk.js.map": "/test-dual-education/static/js/36.3cce3796.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3d10672c.css",
+    "static/js/main.95bc284e.js"
+  ]
+}
