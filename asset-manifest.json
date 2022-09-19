@@ -1,21 +1,26 @@
 {
   "files": {
     "main.css": "/test-dual-education/static/css/main.3d10672c.css",
-    "main.js": "/test-dual-education/static/js/main.95bc284e.js",
-    "static/js/997.4c328a03.chunk.js": "/test-dual-education/static/js/997.4c328a03.chunk.js",
-    "static/js/826.79720adc.chunk.js": "/test-dual-education/static/js/826.79720adc.chunk.js",
-    "static/js/569.c00c9fd5.chunk.js": "/test-dual-education/static/js/569.c00c9fd5.chunk.js",
-    "static/js/36.3cce3796.chunk.js": "/test-dual-education/static/js/36.3cce3796.chunk.js",
+    "main.js": "/test-dual-education/static/js/main.84e1facf.js",
+    "static/js/675.92d3e4ba.chunk.js": "/test-dual-education/static/js/675.92d3e4ba.chunk.js",
+    "static/css/290.21b571cb.chunk.css": "/test-dual-education/static/css/290.21b571cb.chunk.css",
+    "static/js/290.7e8b306c.chunk.js": "/test-dual-education/static/js/290.7e8b306c.chunk.js",
+    "static/js/252.dc9c737a.chunk.js": "/test-dual-education/static/js/252.dc9c737a.chunk.js",
+    "static/js/440.4e44583c.chunk.js": "/test-dual-education/static/js/440.4e44583c.chunk.js",
+    "static/js/312.dcaeeb8c.chunk.js": "/test-dual-education/static/js/312.dcaeeb8c.chunk.js",
+    "static/media/pokemon.png": "/test-dual-education/static/media/pokemon.754f50521777a5b68a2e.png",
     "index.html": "/test-dual-education/index.html",
     "main.3d10672c.css.map": "/test-dual-education/static/css/main.3d10672c.css.map",
-    "main.95bc284e.js.map": "/test-dual-education/static/js/main.95bc284e.js.map",
-    "997.4c328a03.chunk.js.map": "/test-dual-education/static/js/997.4c328a03.chunk.js.map",
-    "826.79720adc.chunk.js.map": "/test-dual-education/static/js/826.79720adc.chunk.js.map",
-    "569.c00c9fd5.chunk.js.map": "/test-dual-education/static/js/569.c00c9fd5.chunk.js.map",
-    "36.3cce3796.chunk.js.map": "/test-dual-education/static/js/36.3cce3796.chunk.js.map"
+    "main.84e1facf.js.map": "/test-dual-education/static/js/main.84e1facf.js.map",
+    "675.92d3e4ba.chunk.js.map": "/test-dual-education/static/js/675.92d3e4ba.chunk.js.map",
+    "290.21b571cb.chunk.css.map": "/test-dual-education/static/css/290.21b571cb.chunk.css.map",
+    "290.7e8b306c.chunk.js.map": "/test-dual-education/static/js/290.7e8b306c.chunk.js.map",
+    "252.dc9c737a.chunk.js.map": "/test-dual-education/static/js/252.dc9c737a.chunk.js.map",
+    "440.4e44583c.chunk.js.map": "/test-dual-education/static/js/440.4e44583c.chunk.js.map",
+    "312.dcaeeb8c.chunk.js.map": "/test-dual-education/static/js/312.dcaeeb8c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3d10672c.css",
-    "static/js/main.95bc284e.js"
+    "static/js/main.84e1facf.js"
   ]
 }
