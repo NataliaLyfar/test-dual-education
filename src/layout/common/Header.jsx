@@ -1,24 +1,42 @@
-import styled from "styled-components"
-import { Container } from "components/ui/Container";
-import { SearchBar } from "components/SearchBar";
+import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
+import { CenteredBox, Container } from 'components/ui/Containers';
 
-const HeaderWrapper = styled.header`
-position: fixed;
-width: 100%;
-z-index: 100;
-display: flex;
-align-items: center;
-background: ${p => p.theme.colors.background};
-background: linear-gradient(90deg, rgba(16,29,26,1) 0%, rgba(28,73,58,1) 33%, rgba(16,57,56,1) 77%, rgba(14,70,54,1) 100%);
-box-shadow: 0px 10px 18px -1px #000;
-`;
 
 export const Header = () => {
   return (
     <HeaderWrapper>
       <Container>
-        <SearchBar/>
+        <LogoWrapper>
+          <LogoLink to="/">Pokemons</LogoLink>
+        </LogoWrapper>
       </Container>
     </HeaderWrapper>
   );
 };
+
+const HeaderWrapper = styled.header`
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  background: ${p => p.theme.colors.background};
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+      0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+`;
+const LogoWrapper = styled(CenteredBox)`
+  margin: 0 auto;
+  justify-content: flex-start;
+`;
+const LogoLink = styled(NavLink)`
+padding: ${p => p.theme.space[3]}px 0;
+display: flex;
+align-items: center;
+color: ${p => p.theme.colors.accent};
+font-family: ${p => p.theme.fonts.accent};
+font-size: ${p => p.theme.fontSizes.xxl};
+font-weight: ${p => p.theme.fontWeights.bold};
+  &:hover {
+    color: ${p => p.theme.colors.accent};
+    cursor: pointer;
+  };
+`;

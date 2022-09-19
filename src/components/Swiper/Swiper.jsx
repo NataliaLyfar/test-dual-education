@@ -7,11 +7,7 @@ import styled from 'styled-components';
 import { SwiperCard } from './SwiperCard';
 
 
-const SwiperWrapper = styled.div`
-margin-bottom: ${p => p.theme.space[5]}px;
-`;
-
-export const Slider = ({movies}) => {
+export const Slider = ({pokemons}) => {
   const location = useLocation();
 
   return(
@@ -25,11 +21,11 @@ export const Slider = ({movies}) => {
           }}
         navigation={true}
         virtual>
-        {movies.filter(movie => movie.poster_path).map(movie => {
+        {pokemons.filter(pokemon => pokemon.avatar).map(pokemon => {
           return (
-            <SwiperSlide key={movie.id} virtualIndex={movie.id}>
-              <Link to={`/movies/${movie.id}`} state={{from: location}}>
-                <SwiperCard {...movie}/>
+            <SwiperSlide key={pokemon.name} virtualIndex={pokemon.name}>
+              <Link to={`/pokemons/${pokemon.name}`} state={{from: location}}>
+                <SwiperCard {...pokemon}/>
               </Link>
             </SwiperSlide>
           );
@@ -40,11 +36,16 @@ export const Slider = ({movies}) => {
 };
 
 Swiper.propTypes = {
-  movies: PropTypes.arrayOf(
+  pokemons: PropTypes.arrayOf(
     PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    poster_path: PropTypes.string,
+    name: PropTypes.string.isRequired,
+    avatar: PropTypes.string,
     })
   ),
 };
+
+const SwiperWrapper = styled.div`
+margin-top: ${p => p.theme.space[4]}px;
+box-shadow: 0px 0px 0px 0px #eead71, inset 0px 10px 27px -8px #141414,
+    inset 0px -10px 27px -8px #eead71, 5px 5px 15px 5px rgba(181, 181, 181, 0);
+`;

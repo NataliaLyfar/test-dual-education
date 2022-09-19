@@ -1,158 +1,146 @@
-// import { useEffect, useState } from "react";
-// import { toast } from 'react-toastify';
-// import { ThreeDots } from  'react-loader-spinner';
-// import { TiArrowSync } from "react-icons/ti";
-// import * as API from 'api';
-// import { dataMovie } from "utils/dataMovie";
-// import { MoviesGallery } from "components/MoviesGallery";
-// import { Container } from "components/ui/Container";
-// import { Section } from "components/ui/Section";
-// import { Button } from "components/ui/buttons";
-// import { Slider } from "components/Swiper";
-// import { Title } from "components/ui/Title";
 
-// export function getPokemon({ url }) {
-//   return new Promise((resolve, reject) => {
-//       fetch(url).then(res => res.json())
-//           .then(data => {
-//               resolve(data)
-//           })
-//   });
-// }
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import {
+  getPokemons,
+  getPokemonData,
+  getPokemonBySearch,
+  getPokemonByType,
+} from 'api';
+import { toast } from 'react-toastify';
+import { ThreeDots } from 'react-loader-spinner';
+import { dataPokemon, dataSelectedPoko  } from 'helpers';
+import { Section } from 'components/ui/Containers/Section';
+import { SearchBar } from 'components/SearchBar';
+import { PokemonGallery } from 'components/PokemonGallery';
+import { PokemonInfo } from 'components/PokemonInfo';
+import { Pagination } from 'components/Pagination';
+import { PlayingPokemon } from 'components/PlayingPokemon/PlayingPokemon';
 
-// export async function getAllPokemon(url) {
-//   return new Promise((resolve, reject) => {
-//       fetch(url).then(res => res.json())
-//           .then(data => {
-//               resolve(data)
-//           })
-//   });
-// }
-// const HomePage = () => {
-//   const [pokemonData, setPokemonData] = useState([])
-//   const [nextUrl, setNextUrl] = useState('');
-//   const [prevUrl, setPrevUrl] = useState('');
-//   const [loading, setLoading] = useState(true);
-//   const initialURL = 'https://pokeapi.co/api/v2/pokemon'
-
-//   useEffect(() => {
-//     async function fetchData() {
-//       let response = await getAllPokemon(initialURL)
-//       setNextUrl(response.next);
-//       setPrevUrl(response.previous);
-//       await loadPokemon(response.results);
-//       setLoading(false);
-//     }
-//     fetchData();
-//   }, [])
-
-//   const next = async () => {
-//     setLoading(true);
-//     let data = await getAllPokemon(nextUrl);
-//     await loadPokemon(data.results);
-//     setNextUrl(data.next);
-//     setPrevUrl(data.previous);
-//     setLoading(false);
-//   }
-
-//   const prev = async () => {
-//     if (!prevUrl) return;
-//     setLoading(true);
-//     let data = await getAllPokemon(prevUrl);
-//     await loadPokemon(data.results);
-//     setNextUrl(data.next);
-//     setPrevUrl(data.previous);
-//     setLoading(false);
-//   }
-
-//   const loadPokemon = async (data) => {
-//     let _pokemonData = await Promise.all(data.map(async pokemon => {
-//       let pokemonRecord = await getPokemon(pokemon)
-//       return pokemonRecord
-//     }))
-//     setPokemonData(_pokemonData);
-//   }
-
-// //   return (
-// //     <>
-// //       <Navbar />
-// //       <div>
-// //         {loading ? <h1 style={{ textAlign: 'center' }}>Loading...</h1> : (
-// //           <>
-// //             <div className="btn">
-// //               <button onClick={prev}>Prev</button>
-// //               <button onClick={next}>Next</button>
-// //             </div>
-// //             <div className="grid-container">
-// //               {pokemonData.map((pokemon, i) => {
-// //                 return <Card key={i} pokemon={pokemon} />
-// //               })}
-// //             </div>
-// //             <div className="btn">
-// //               <button onClick={prev}>Prev</button>
-// //               <button onClick={next}>Next</button>
-// //             </div>
-// //           </>
-// //         )}
-// //       </div>
-// //     </>
-// //   );
-// // }
-
-// return (
-//   <Container>
-//     {/* {isLoading && <ThreeDots color="#eead71" height={60} width={60} />} */}
-//     <Section>      
-//       {/* {swipeMovies.length !== 0 && (
-//         <>
-//           <Title>Upcoming</Title>
-//           <Slider movies={swipeMovies}/>
-//         </>)} */}
-//       {pokemonData.length !== 0 &&(
-//         <>
-//           {pokemonData.map((pokemon, i) => {
-//                 return <div key={i} pokemon={pokemon}>{pokemon}</div>
-//               })}
-//         </>)}
-//       {/* {!isLoading && movies.length >= 20 && 
-//         <Button onClick={handleLoadMore} icon={<TiArrowSync/>}>
-//           Load more
-//         </Button>} */}
-//     </Section>
-//   </Container>
-//   );
-// };
-
-import { PokemonGallery } from "components/PokemonGallery";
-import { useState, useEffect } from "react";
-import { getPokemons, getPokemonData } from "api";
 
 const HomePage = () => {
-const [allPokemons, setAllPokemons] = useState([]);
-// const [loadMore, setLoadMore] = useState('https://pokeapi.co/api/v2/pokemon?limit=10');
+  const [isLoading, setIsLoading] = useState(false);
+  const [allPokemons, setAllPokemons] = useState([]);
+  const [pokemon, setPokemon] = useState();
+  const [pokemonsByType, setPokemonsByType] = useState([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [offset, setOffset] = useState(0);
+  const [count, setCount] = useState(0);
+  const [queryParam, setQueryParam] = useSearchParams({});
+  const [perPage, setPerPage] = useState(10);
 
+  const query = queryParam.get('query') ?? '';
+  const type = queryParam.get('type') ?? '';
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await getPokemons(perPage, offset);
+        const promises = data.results.map(async pokemon => {
+          return await getPokemonData(pokemon.url);
+        });
+        const results = await Promise.all(promises);
+        setAllPokemons(dataPokemon(results));
+        setPageCount(Math.ceil(data.count / perPage));
+        setCount(data.count);
+      } catch (error) {
+        toast.info(`Something went wrong ${error}`);
+      } finally {
+        setIsLoading(false);
+      }
+    })();
+  }, [offset, pageCount, perPage]);
 
-useEffect(() => {
-  (async () => {
-    const {data} = await getPokemons(10,0);
-    //  setLoadMore(data.next);
-      const promises = data.results.map(async (pokemon) => {
-        return await getPokemonData(pokemon.name)
-      })
-      const results = await Promise.all(promises);
-     setAllPokemons(prev => [...prev, ...results]);
-  })()
- },[])
+  useEffect(() => {
+    if (!query) {
+      return;
+    }
+    (async () => {
+      try {
+        setIsLoading(true);
+        const { ...data } = await getPokemonBySearch(query);
+        setPokemon(dataSelectedPoko(data));
+      } catch (error) {
+        toast.info(`Something went wrong ${error}`);
+      } finally {
+        setIsLoading(false);
+      }
+    })();
+  }, [query]);
 
- return (
-  
-        <div>
-          {<PokemonGallery pokemons={allPokemons}/>}
-         
-        <button type="button">Load more</button>
-      
-    </div>
-      );
-    };
+  useEffect(() => {
+    if (!type) {
+      return;
+    }
+    (async () => {
+      try {
+        setIsLoading(true);
+        const { ...data } = await getPokemonByType(type);
+        const promises = data.pokemon.map(async ({ pokemon }) => {
+          return await getPokemonBySearch(pokemon.name);
+        });
+        const results = await Promise.all(promises);
+        setPokemonsByType(dataPokemon(results));
+      } catch (error) {
+        toast.info(`Something went wrong ${error}`);
+      } finally {
+        setIsLoading(false);
+      }
+    })();
+  }, [type, perPage, offset]);
+
+  const handlePageClick = event => {
+    const newOffset = (event.selected * perPage) % count;
+    setOffset(newOffset);
+  };
+
+  const handleFormSearch = query => {
+    const nextParams = query !== '' ? { query: query } : {};
+    setQueryParam(nextParams);
+    if (!query) {
+      toast.info('There is nothing to search!');
+    }
+  };
+  const handleChoicePerPage = e => setPerPage(e.value);
+  const handleTypeFilter = (e, type) => {
+    const newType = e.value;
+    const nextParams = type !== '' ? { type: newType } : {};
+    setQueryParam(nextParams);
+  };
+
+  return (
+    <Section>
+      {isLoading && <ThreeDots color="#eead71" height="60" width="60" />}
+      {query.length === 0 && (
+        <>
+          <SearchBar
+            onSearch={handleFormSearch}
+            onSelectChange={handleChoicePerPage}
+            onSelectFilter={handleTypeFilter}
+            type={type}
+          />
+          {!type && allPokemons.length > 0 && (
+            <>
+              <PokemonGallery pokemons={allPokemons} />
+              <Pagination
+                pageCount={pageCount}
+                pageRangeDisplayed={2}
+                onPageChange={handlePageClick}
+                previousLabel="<"
+                nextLabel=">"
+              />
+            </>
+          )}
+        </>
+      )}
+      {type && pokemonsByType.length > 0 && (
+        <PokemonGallery pokemons={pokemonsByType} />
+      )}
+      {pokemon && query.length > 0 && <PokemonInfo {...pokemon} />}
+      {allPokemons.length !== 0 && <PlayingPokemon pokemons={allPokemons}/>}
+    </Section>
+  );
+};
 export default HomePage;
+
+

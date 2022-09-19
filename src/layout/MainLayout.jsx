@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import { ScrollToTop } from "react-to-top";
 import { Header } from "./common/Header";
+import { Container } from "components/ui/Containers";
 
 
 
@@ -15,11 +16,12 @@ export const MainLayout = () => {
   <>
     <Header />
       <Main>
+        <Container>
         <Suspense>
           <Outlet />
         </Suspense>
+        </Container>
       </Main>
-
       <ScrollToTop
       bgColor="#e6bd77"
       size={50}

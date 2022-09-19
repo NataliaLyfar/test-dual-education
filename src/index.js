@@ -7,7 +7,7 @@ import { GlobalStyle } from 'styleConfig/GlobalStyle';
 import { ThemeProvider } from 'styled-components';
 import { theme } from 'styleConfig/theme';
 import 'react-toastify/dist/ReactToastify.css';
-// import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+
 
 
 

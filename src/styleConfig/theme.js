@@ -2,17 +2,16 @@ export const theme = {
     colors: {
       black: '#000',
       white: '#fff',
-      background: 'rgb(16,29,26)',
+      background: '#ef5350',
       primary: 'rgb(4,74,65)',
       secondary: '#0D261A',
-      tertiary: 'rgb(98,163,138)',
+      tertiary: '#006622',
       shadow: '#DFDAD0',
       accent: '#eead71',
     },
-    space: [5, 8, 12, 16, 20, 25, 32, 48, 64, 88, 98, 120],
+    space: [5, 8, 12, 16, 20, 25, 32, 48, 64, 88, 98, 120, 180],
     fonts: {
-      body: 'Dancing Script, cursive',
-      accent: 'Satisfy',
+      body: 'Roboto Slab, serif',
     },
     fontSizes: {
       xs: '12px',
